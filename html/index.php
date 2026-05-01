@@ -1,3 +1,8 @@
+<?php
+session_start();
+$errors = $_SESSION['errors'] ?? [];
+unset($_SESSION['errors']);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +15,13 @@
 </head>
 
 <body>
+    <?php if (!empty($errors)): ?>
+        <ul>
+            <?php foreach ($errors as $e): ?>
+                <li><?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8') ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
     <form method="POST" action="thanks.php">
         <label for="name">名前</label><br>
         <input type="text" id="name" name="name"><br>
